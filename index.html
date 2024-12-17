@@ -13,11 +13,15 @@
             background: linear-gradient(135deg, #6d83f2, #9dcffb);
             color: #fff;
             display: flex;
+			flex-direction: column;
+			align-items: center;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            /*height: 100vh;*/
+			min-height: 100%;
             text-align: center;
-            overflow: hidden; /* Oculta el scroll */
+            overflow: auto;
+			overflow-x: hidden;
             position: relative;
         }
         .container {
@@ -26,7 +30,60 @@
             background: rgba(0, 0, 0, 0.5);
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+			margin-bottom: 20px;
+			margin-top: 60px;
         }
+		.container-courses {
+            max-width: 900px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+			margin-bottom: 20px;
+			margin-top: 60px;
+        }
+		.container-projects {
+            max-width: 1100px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+			margin-bottom: 20px;
+			margin-top: 60px;
+        }
+		.styled-table {
+			width: 100%;
+			border-collapse: collapse;
+			margin: 20px 0;
+			font-size: 1rem;
+			font-family: 'Arial', sans-serif;
+			text-align: center;
+			background-color: rgba(255, 255, 255, 0.2);
+			border-radius: 12px;
+			overflow: hidden;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+		}
+		.styled-table th, .styled-table td {
+			padding: 10px 30px;
+			color: #fff;
+		}
+
+		.styled-table th {
+			background-color: rgba(0, 0, 0, 0.7);
+			font-weight: bold;
+		}
+
+		.styled-table tr {
+			margin-bottom: 10px;
+		}
+
+		.styled-table tr:nth-child(even) {
+			background-color: rgba(255, 255, 255, 0.1);
+		}
+
+		.styled-table tr:hover {
+			background-color: rgba(255, 255, 255, 0.3);
+		}
         h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
@@ -97,14 +154,16 @@
 
         /* Partículas */
         .stars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%; /* Cambiarlo a min-height para que crezca con el contenido */
+			min-height: 100vh; /* Al menos cubrir la altura de la pantalla */
+			z-index: -1; /* Mantenerlo detrás del contenido */
+			overflow: hidden; /* Evitar que las partículas sobresalgan */
+			pointer-events: none; /* Evitar interacciones con el fondo */
+		}
         .star {
             position: absolute;
             width: 4px;
@@ -123,19 +182,67 @@
                 transform: scale(1.2);
             }
         }
+		.project-container {
+            width: 100%;
+			align: center;
+            max-width: 900px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+			margin-bottom: 20px;
+        }
+
+        .project-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .project-buttons button {
+			background-color: rgba(0, 0, 0, 0.7);
+			font-weight: bold;
+            border: 2px solid #007bff;
+            /*background: transparent;*/
+            color: #007bff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .project-buttons button:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        .project-content {
+            text-align: center;
+        }
+
+        .project-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+		.project-content li {
+            text-align: left;
+			margin-left: 30px;
+        }
+		.hidden {
+			display: none;
+		}
+
     </style>
 </head>
 <body>
     <div class="stars" id="stars"></div>
 
-    <div class="language-switcher">
-        <button onclick="changeLanguage('es')">🇪🇸 Español</button>
-        <button onclick="changeLanguage('en')">🇺🇸 English</button>
-    </div>
     <div class="container">
         <img src="logo.png" alt="Logo" class="logo">
         <h1 id="title">¡Estoy trabajando en ello!</h1>
-        <p id="message">La página estará disponible muy pronto. Gracias por su paciencia.</p>
+        <p id="message">La versión final de esta página estará disponible muy pronto. A continuación puedes encontrar un pequeño resumen de las formaciones que he impartido y mis proyectos más destacables.</p>
         <div class="progress-bar">
             <div class="progress"></div>
         </div>
@@ -143,40 +250,172 @@
             <p id="contact">¿Alguna pregunta?<a href="https://www.linkedin.com/in/jesusperezmartinez/"> Contacta conmigo a través de LinkedIn</a></p>
         </footer>
     </div>
+	
+	
+	<div class="container-courses">
+        <h1 id="title-c">Listado de cursos impartidos</h1>
+        <p id="sub1-c">Horas totales: +2400h</p>
+		<p id="sub2-c">Última actualización: 11/12/2024</p>
+		<table class="styled-table">
+        <thead>
+            <tr>
+                <th>Curso</th>
+                <th>Código</th>
+                <th>Horas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Inteligencia artificial aplicada a la empresa</td>
+                <td>IFCT163PO</td>
+                <td>250</td>
+            </tr>
+            <tr>
+                <td>Introducción a la inteligencia artificial y los algoritmos</td>
+                <td>IFCT155PO</td>
+                <td>180</td>
+            </tr>
+			<tr>
+                <td>Inteligencia Artificial</td>
+                <td>-</td>
+                <td>12</td>
+            </tr>
+			<tr>
+                <td>Fundamentos de robótica</td>
+                <td>FMEM009PO</td>
+                <td>50</td>
+            </tr>
+			<tr>
+                <td>Iniciación a Python</td>
+                <td>-</td>
+                <td>50</td>
+            </tr>
+			<tr>
+                <td>Introducción a las técnicas de posicionamiento web</td>
+                <td>ADGD385PO</td>
+                <td>60</td>
+            </tr>
+			<tr>
+                <td>Gestión de la seguridad informática en la empresa</td>
+                <td>IFCT050PO</td>
+                <td>100</td>
+            </tr>
+			<tr>
+                <td>Buenas prácticas de seguridad en los sistemas de información</td>
+                <td>-</td>
+                <td>80</td>
+            </tr>
+			<tr>
+                <td>Ciberseguridad en dispositivos móviles</td>
+                <td>-</td>
+                <td>50</td>
+            </tr>
+			<tr>
+                <td>Seguridad informática y firma digital</td>
+                <td>IFCM026PO</td>
+                <td>50</td>
+            </tr>
+			<tr>
+                <td>Ciberseguridad para usuarios</td>
+                <td>IFCT135PO</td>
+                <td>10</td>
+            </tr>
+			<tr>
+                <td>ChatGPT y otras herramientas de la IA para búsqueda de oportunidades laborales</td>
+                <td>-</td>
+                <td>2</td>
+            </tr>
+			<tr>
+                <td>TICs para la búsqueda y mejora de oportunidades laborales</td>
+                <td>-</td>
+                <td>60</td>
+            </tr>
+			<tr>
+                <td>Competencias digitales básicas</td>
+                <td>IFCT45</td>
+                <td>60</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+	
+	<div class="container-projects">
+		<h1 id="title-p">Proyectos a destacar</h1>
+		<div class="project-container">
+			<div class="project-buttons">
+				<button onclick="showProject(1)">EndSim</button>
+				<button onclick="showProject(2)">AgroControlInt</button>
+				<button onclick="showProject(3)">AutoProsp</button>
+				<button onclick="showProject(4)">Fotogrametría</button>
+				<button onclick="showProject(5)">XyApp</button>
+			</div>
+
+			<div id="project-1" class="project-content">
+				<h2>EndSim</h2>
+				<p style="text-align: justify;">Solución basada en IA diseñada para optimizar el rendimiento en pruebas deportivas de larga duración y alta resistencia, como en <a href="https://es.wikipedia.org/wiki/Ultra_trail" target="_blank">ultra-trail</a> o <a href="https://orienteeringusa.org/explore/what-is-rogaining/" target="_blank">rogaining</a>. El objetivo era crear un modelo de IA que analizara las necesidades nutricionales de los atletas basándose en sus cargas de entrenamiento, sus métricas corporales y datos personales.<br><br>
+				Esta herramienta permite simular pruebas, para realizar predicciones sobre estrategias técnicas y necesidades nutricionales.</p>
+				<img src="imgs/endsim.png" alt="Proyecto 1">
+			</div>
+
+			<div id="project-2" class="project-content hidden">
+				<h2>AgroControlInt</h2>
+				<p style="text-align: justify;">Sistema capaz de monitorizar cultivos dentro de un invernadero, para posteriormente tomar decisiones automatizadas mediante modelos de IA en base a los datos recogidos. Principalmente, permite al usuario revisar con gran nivel de detalle cada uno de los elementos de la instalación, y establecer reglas de automatización. Con la información recogida, el sistema aprenderá cuáles son las acciones más efectivas para conseguir el mayor rendimiento con el mínimo consumo de recursos.<br><br>
+				Puede utilizarse como herramienta tanto en el cultivo de plantas como en el de setas y hongos.
+				</p>
+				<img src="imgs/agrocontrolint.png" alt="Proyecto 2">
+			</div>
+
+			<div id="project-3" class="project-content hidden">
+				<h2>AutoProsp</h2>
+				<p style="text-align: justify;">Herramienta basada en la automatización de procesos, la cual está pensada para coordinar equipos en tareas de prospección dentro de grandes extensiones de terreno. Mediante datos tomados in-situ por el personal técnico, AutoProsp es capaz de combinarlos y realizar informes detallados de manera automática. También puede utilizarse en mantenimiento de grandes infraestructuras, gestión de emergencias, u otras tareas que impliquen el despliegue de medios y/o equipos humanos en un área geográfica determinada.<br><br>
+				Dependiendo de la tarea o tareas a automatizar, AutoProsp es capaz de ahorrar hasta un 90% del tiempo empleado a la hora de combinar la información y extraer conclusiones relevantes.</p>
+				<img src="imgs/autoprosp.png" alt="Proyecto 3">
+			</div>
+
+			<div id="project-4" class="project-content hidden">
+				<h2>Fotogrametría</h2>
+				<p style="text-align: justify;">La fotogrametría es una técnica que nos permite estudiar y definir con precisión la forma, dimensiones y posición en el espacio de un objeto cualquiera, mediante fotografías tomadas previamente. Dicho de otro modo, a partir de fotografías podemos obtener el modelo en tres dimensiones de un objeto.<br><br>
+					A lo largo de los años he conseguido establecer una serie de metodologías que me permiten reconstruir de manera efectiva desde grandes elementos como edificios (mediante imágenes tomadas con drone), hasta elementos microscópicos. En la imagen aparecen tres ejemplos de reconstrucciones, siendo de izquierda a derecha:</p>
+					<li>Entrada excavada en piedra del <a href="https://es.wikipedia.org/wiki/Poblado_%C3%ADbero_Castellar_de_Meca" target="_blank">Poblado Íbero del Castellar de Meca</a>. (~80 metros de largo)</li>
+					<li>Fósil de <a href="https://es.wikipedia.org/wiki/Ammonoidea" target="_blank">ammonite</a>. (~10 centímetros de diámetro)</li>
+					<li>Escama de pez. (~1,6 milímetros de diámetro)</li>
+				<img src="imgs/fotogrametria.png" alt="Proyecto 4">
+			</div>
+			<div id="project-5" class="project-content hidden">
+				<h2>XyApp</h2>
+				<p style="text-align: justify;">Fue la primera propuesta propia de proyecto que desarrollé, y tuve la gran suerte de poder hacerlo en el ICA-CSIC, junto al equipo de Alberto Fereres. Correspondió a mi periodo de prácticas universitarias, donde propuse la creación de un prototipo de <em>ensemble</em> que permitiera detectar la <em><a href="https://www.mapa.gob.es/es/agricultura/temas/sanidad-vegetal/organismos-nocivos/xylella-fastidiosa/" target="_blank">Xylella Fastidiosa</a></em> en árboles, primeramente en olivos.<br><br>
+				Mediante generación de imagenes artificiales para el set de entrenamiento, se consiguió un modelo completamente funcional capaz de detectar la enfermedad combinando imágenes de varios puntos del árbol. El prototipo de sistema constaba de modelo de IA (red convolucional), cliente móvil, y servidor.</p>
+				<img src="imgs/xyapp.png" alt="Proyecto 4">
+			</div>
+		</div>
+	</div>
 
     <script>
-        const translations = {
-            es: {
-                title: "¡Estoy trabajando en ello!",
-                message: "La página estará disponible muy pronto. Gracias por su paciencia.",
-                contact: "¿Alguna pregunta? <a href='https://www.linkedin.com/in/jesusperezmartinez/'> Contacta conmigo a través de LinkedIn</a>"
-            },
-            en: {
-                title: "I'm on it!",
-                message: "This page will be available soon. Thank you for your patience.",
-                contact: "Any questions? <a href='https://www.linkedin.com/in/jesusperezmartinez/'> Contact with me through LinkedIn</a>"
-            }
-        };
+		function showProject(projectNumber) {
+            // Ocultar todos los proyectos
+            const projects = document.querySelectorAll('.project-content');
+            projects.forEach(project => project.classList.add('hidden'));
 
-        function changeLanguage(lang) {
-            document.getElementById('title').innerText = translations[lang].title;
-            document.getElementById('message').innerText = translations[lang].message;
-            document.getElementById('contact').innerHTML = translations[lang].contact;
+            // Mostrar el proyecto seleccionado
+            const selectedProject = document.getElementById(`project-${projectNumber}`);
+            if (selectedProject) {
+                selectedProject.classList.remove('hidden');
+            }
         }
 
         // Generar partículas (estrellas)
         function createStars() {
-            const starContainer = document.getElementById('stars');
-            for (let i = 0; i < 50; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                star.style.top = `${Math.random() * 100}%`;
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.animationDuration = `${3 + Math.random() * 2}s`;
-                starContainer.appendChild(star);
-            }
-        }
-        createStars();
+			const starContainer = document.getElementById('stars');
+			for (let i = 0; i < 50; i++) {
+				const star = document.createElement('div');
+				star.classList.add('star');
+				star.style.top = `${Math.random() * starContainer.offsetHeight}px`; // Posición relativa al contenedor
+				star.style.left = `${Math.random() * 100}%`;
+				star.style.animationDuration = `${3 + Math.random() * 2}s`;
+				starContainer.appendChild(star);
+			}
+		}
+		createStars();
     </script>
 </body>
 </html>
